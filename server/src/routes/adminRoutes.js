@@ -3,11 +3,11 @@ import { addStudent, updateStudent, deleteStudent, getStudentById, getStudents, 
 import auth from "../middlewares/auth.js";
 const adminRouter = express.Router();
 
-adminRouter.get("/:studentId", getStudentById);
+adminRouter.get("/:id", getStudentById);
 adminRouter.get("/", getStudents);
 adminRouter.post("/", addStudent);
-adminRouter.delete("/:studentId", deleteStudent);
-adminRouter.put("/:studentId", updateStudent);
+adminRouter.delete("/:id", deleteStudent);
+adminRouter.put("/:id", updateStudent);
 adminRouter.post("/signin", signin);
 
 export default adminRouter;

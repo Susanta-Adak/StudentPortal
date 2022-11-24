@@ -29,3 +29,16 @@ export const signin = async (req, res) => {
         res.status(500).json({ message: "Something went wrong." });
     }
 }
+
+export const getInfo = async (req, res) =>{
+    const id = req.userId;
+    try {
+        const student = await studentModel.findById(id);
+        res.status(200).json(student);
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: "Something went wrong." });
+        // next(error);
+    }
+}

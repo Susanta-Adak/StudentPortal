@@ -5,6 +5,7 @@ import mongoose from "mongoose";
 import dotenv from 'dotenv';
 dotenv.config();
 import cors from 'cors';
+import errorHandler from "./middlewares/errorHandler.js";
 
 const app = express();
 app.use(cors());
@@ -14,10 +15,10 @@ app.use("/admin/students", adminRouter);
 app.use("/admin", adminRouter);
 app.use("/student", studentRouter);
 
-
 app.get("/",(req, res)=>{
-    res.send("Notes REST API.");
+    res.send("Student Poartal REST API.");
 })
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
 

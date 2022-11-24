@@ -47,8 +47,8 @@ export const addStudent = async (req, res) => {
 }
 
 export const updateStudent = async (req, res) => {
-    const studentId = req.params.studentId;
-    const { name, address, mobileNumber, password, email} = req.body;
+    const id = req.params.id;
+    const { studentId, name, address, mobileNumber, password, email} = req.body;
     const guardian = await guardianModel.findOne({studentId: studentId});
     let guardianId = null;
     if(guardian){
@@ -64,7 +64,7 @@ export const updateStudent = async (req, res) => {
     };
 
     try {
-        await studentModel.findOneAndUpdate({studentId: studentId}, newStudent, {new: true});
+        await studentModel.findByIdAndUpdate(id, newStudent, {new: true});
         res.status(200).json(newStudent);
     } catch (error) {
         console.log(error);
@@ -74,9 +74,9 @@ export const updateStudent = async (req, res) => {
 }
 
 export const deleteStudent = async (req, res) => {
-    const studentId = req.params.studentId;
+    const id = req.params.id;
     try {
-        const student = await studentModel.findOneAndDelete({studentId});
+        const student = await studentModel.findByIdAndDelete(id);
         res.status(200).json(student);
     } catch (error) {
         console.log(error);
@@ -84,15 +84,20 @@ export const deleteStudent = async (req, res) => {
     }
 }
 
-export const getStudentById = async (req, res) => {
-    const studentId = req.params.studentId;
+export const getStudentById = async (req, res, next) => {
+    const id = req.params.id;
     try {
-        const student = await studentModel.findOne({ studentId });
+        const student = await studentModel.findById(id);
+        if(!student){
+            throw new Error("notFound");
+        }
         res.status(200).json(student);
 
     } catch (error) {
         console.log(error);
-        res.status(500).json({ message: "Something went wrong." });
+        // res.status(500).json({ message: "Something went wrong." });
+        // next({status:400, message:"not found"});
+        next(error);
     }
 }
 
