@@ -1,8 +1,11 @@
-import React from 'react'
+import React from 'react';
+import Login from './components/login/Login';
 
 const App = () => {
   return (
-    <div>App</div>
+    <>
+      <Login />
+    </>
   )
 }
 
