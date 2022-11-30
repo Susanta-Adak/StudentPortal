@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { styled, ThemeProvider, createTheme } from '@mui/material/styles';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
@@ -10,20 +10,6 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { studentLogin } from '../../actions/studentActions';
 
-
-
-const text = createTheme({
-    components: {
-        MuiButton: {
-            styleOverrides: {
-                root: {
-                    fontSize: '2rem',
-                    color: "Highlight"
-                },
-            },
-        },
-    },
-});
 
 const Login = () => {
     const [loginData, setLoginData] = useState({ studentId: '', password: '' });
@@ -38,6 +24,7 @@ const Login = () => {
         
         console.log(student);
     }
+    
     return (
         <Box sx={{ flexGrow: 1 }}>
             <Grid container
@@ -48,7 +35,7 @@ const Login = () => {
                 <Grid item xs={3}>
                     <form autoComplete='off' onSubmit={handleSubmit}>
                         <Stack spacing={2} sx={{ backgroundColor: "" }}>
-                            <ThemeProvider theme={text}><h3>LogIn</h3></ThemeProvider>
+                            <h3>LogIn</h3>
                             <TextField id="outlined-basic" label="Student ID" variant="outlined" onChange={(e)=> setLoginData({...loginData, studentId: e.target.value})} />
                             <TextField id="outlined-basic" label="Password" variant="outlined" onChange={(e)=> setLoginData({...loginData, password: e.target.value})} />
                             <Button variant="contained" type='submit'>Login</Button>
