@@ -1,8 +1,9 @@
 import studentModel from "../models/student.js";
 import guardianModel from "../models/guardian.js";
+import bcrypt from 'bcrypt';
 
 export const addStudent = async (req, res) => {
-    const { studentId, name, address, mobileNumber, password, email, photo} = req.body;
+    const { studentId, name, address, mobileNumber, password, email} = req.body;
 
     const guardian = await guardianModel.findOne({studentId: studentId});
     let guardianId = null;
@@ -28,7 +29,6 @@ export const addStudent = async (req, res) => {
             mobileNumber,
             password: hashedPassword,
             email,
-            photo,
             guardianId
         });
 
@@ -42,7 +42,7 @@ export const addStudent = async (req, res) => {
 
 export const updateStudent = async (req, res) => {
     const id = req.params.id;
-    const { studentId, name, address, mobileNumber, password, email, photo} = req.body;
+    const { studentId, name, address, mobileNumber, password, email} = req.body;
     const guardian = await guardianModel.findOne({studentId: studentId});
     let guardianId = null;
     if(guardian){
@@ -54,7 +54,6 @@ export const updateStudent = async (req, res) => {
         mobileNumber,
         password,
         email,
-        photo,
         guardianId
     };
 
@@ -100,7 +99,6 @@ export const getStudents = async (req, res) => {
     try {
         const students = await studentModel.find();
         res.status(200).json(students);
-
     } catch (error) {
         console.log(error);
         res.status(500).json({ message: "Something went wrong." });

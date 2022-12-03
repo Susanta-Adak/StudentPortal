@@ -25,9 +25,6 @@ const StudentSchema = mongoose.Schema({
         type : String,
         require : true
     },
-    photo: {
-        type : String
-    },
     guardianId: {
         type : mongoose.Schema.Types.ObjectId,
         ref : "Guardian"
