@@ -46,7 +46,7 @@ export default function StudentLogin() {
     const handleSubmit = (event) => {
         event.preventDefault();
         dispatch(studentLogin(loginData))
-            .then(() => {
+            .then((result) => {
                 if (data.status == 200) {
                     navigate("/dashboard",{state: {id: data.student.user._id}});
                 }
