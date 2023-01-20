@@ -8,6 +8,7 @@ import studentRouter from "./routes/studentRoutes.js";
 import adminRouter from "./routes/adminRoutes.js";
 import adminSigninRouter from "./routes/adminSigninRoutes.js";
 import errorHandler from "./middlewares/errorHandler.js";
+import swaggerDocs from "./utils/swagger.js";
 
 const app = express();
 app.use(cors({
@@ -25,9 +26,9 @@ app.get("/", (req, res) => {
 })
 
 app.use(errorHandler);
-app.all("*", (req, res, next) => {
-    res.status(400).json({ message: "Page not found" });
-})
+// app.all("*", (req, res, next) => {
+//     res.status(400).json({ message: "Page not found" });
+// })
 
 const PORT = process.env.PORT || 5000;
 
@@ -36,6 +37,7 @@ mongoose.connect(process.env.MONGO_URL)
     app.listen(PORT, (err) => {
         if (err) throw err;
         console.log("Server started on port: " + PORT);
+        swaggerDocs(app, PORT);
     })
 })
 .catch((err) => {
