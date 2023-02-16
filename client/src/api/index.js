@@ -19,3 +19,4 @@ const BASE_URL = "http://localhost:5000/student/signin";
 //   });
     
 export const studentLogin = async (studentInfo) => await axios.post(BASE_URL, studentInfo);
+// export const getCookie = async () => await axios.get();

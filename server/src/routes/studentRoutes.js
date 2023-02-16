@@ -1,6 +1,7 @@
 import express from "express";
 import { signin, getInfo } from "../controllers/studentController.js";
 import auth from "../middlewares/auth.js";
+import auth2 from "../middlewares/auth_2.js";
 const studentRouter = express.Router();
 
 /**
@@ -99,6 +100,6 @@ studentRouter.post("/signin", signin);
  *                   type: string
  *                   description: Status = failure
  */
-studentRouter.get("/info",auth, getInfo);
+studentRouter.get("/info",auth2, getInfo);
 
 export default studentRouter;

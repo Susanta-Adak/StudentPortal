@@ -1,6 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from 'dotenv';
+import cookieParser from 'cookie-parser';
 dotenv.config();
 import cors from 'cors';
 
@@ -11,6 +12,7 @@ import errorHandler from "./middlewares/errorHandler.js";
 import swaggerDocs from "./utils/swagger.js";
 
 const app = express();
+app.use(cookieParser());
 app.use(cors({
     "origin": "*",
     "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",

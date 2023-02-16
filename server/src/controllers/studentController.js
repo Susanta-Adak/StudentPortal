@@ -22,6 +22,10 @@ export const signin = async (req, res) => {
 
         //Token generate
         const token = jwt.sign({ studentId: existingUser.studentId, id: existingUser._id }, SECRET_KEY);
+        // save jwt in HttpOnly cookie
+        res.cookie('jwt_token', token, { 
+            httpOnly: true
+        });
         res.status(200).json({ user: existingUser, token: token });
 
     } catch (error) {
@@ -33,6 +37,8 @@ export const signin = async (req, res) => {
 export const getInfo = async (req, res) =>{
     const id = req.userId;
     try {
+        let val = req.cookies.jwt_token;
+        console.log(val);
         const student = await studentModel.findById(id);
         res.status(200).json(student);
 

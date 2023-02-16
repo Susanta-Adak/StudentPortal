@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, useNavigate} from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useNavigate, Redirect } from 'react-router-dom';
 
 import Login from './components/login/Login';
 import Signup from './components/signup/Signup';
@@ -11,12 +11,17 @@ const App = () => {
     <>
       <Router>
         <Routes>
-          <Route path='/' element={<StudentLogin />}/>
-          <Route path='/dashboard' element={<StudentDashboard />}/>
+          <Route path='/' element={<StudentLogin />} />
+          <Route path='/dashboard' render={() => (
+            isLoggedIn() ? (<StudentDashboard />) : (<Redirect to="/" />)
+          )} />
         </Routes>
       </Router>
     </>
   )
 }
 
+function isLoggedIn(){
+
+}
 export default App;
